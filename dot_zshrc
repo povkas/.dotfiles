@@ -143,10 +143,17 @@ export JAVA_HOME
 export PATH=$PATH:$JAVA_HOME/bin
 export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
 
-for conf in "$HOME/.config/zsh/config.d/"*.zsh; do
-  source "${conf}"
-done
-unset conf
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+
+zsh_files=("$HOME/.config/zsh/config.d/"*.zsh)
+if [ ${#zsh_files[@]} -eq 0 ]; then
+  echo "No .zsh files found in directory"
+else
+  for conf in "${zsh_files[@]}"; do
+    source "${conf}"
+  done
+  unset conf
+fi
+unset conf
