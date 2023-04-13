@@ -1,0 +1,7 @@
+set relativenumber
+set number
+
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap <C-f> <C-f>zz
+
