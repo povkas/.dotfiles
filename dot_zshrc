@@ -121,13 +121,24 @@ alias vim=nvim
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
 
-zsh_files=("$HOME/.config/zsh/config.d/"*.zsh)
-if [ ${#zsh_files[@]} -eq 0 ]; then
-  echo "No .zsh files found in directory"
+config_dir="$HOME/.config/zsh/config.d/"
+
+# Check if the config directory exists
+if [ ! -d "${config_dir}" ]; then
+  echo "Config directory does not exist"
 else
-  for conf in "${zsh_files[@]}"; do
-    source "${conf}"
-  done
-  unset conf
+    zsh_files=("${config_dir}"*.zsh(N))
+
+  # Check if there are no .zsh files in the directory
+  if [ ${#zsh_files[@]} -eq 1 ] && [ ! -f "${zsh_files[0]}" ]; then
+    echo "No .zsh files found in directory"
+  else
+    for conf in "${zsh_files[@]}"; do
+      if [ -f "${conf}" ]; then  # extra check to make sure it's a file
+        source "${conf}"
+      fi
+    done
+  fi
 fi
+
 unset conf
