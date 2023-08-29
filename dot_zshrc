@@ -142,3 +142,11 @@ else
 fi
 
 unset conf
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+alias kafka-ui="docker run -it -p 8080:8080 -e DYNAMIC_CONFIG_ENABLED=true provectuslabs/kafka-ui"
+
+export PATH="/opt/homebrew/opt/gradle@6/bin:$PATH"
