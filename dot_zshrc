@@ -124,21 +124,18 @@ export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
 config_dir="$HOME/.config/zsh/config.d/"
 
 # Check if the config directory exists
-if [ ! -d "${config_dir}" ]; then
-  echo "Config directory does not exist"
-else
+if [ -d "${config_dir}" ]; then
     zsh_files=("${config_dir}"*.zsh(N))
 
-  # Check if there are no .zsh files in the directory
-  if [ ${#zsh_files[@]} -eq 1 ] && [ ! -f "${zsh_files[0]}" ]; then
-    echo "No .zsh files found in directory"
-  else
-    for conf in "${zsh_files[@]}"; do
-      if [ -f "${conf}" ]; then  # extra check to make sure it's a file
-        source "${conf}"
-      fi
-    done
-  fi
+    if [ ${#zsh_files[@]} -eq 0 ]; then
+        echo "No .zsh files found in directory"
+    else
+        for conf in "${zsh_files[@]}"; do
+            if [ -f "${conf}" ]; then  # extra check to make sure it's a file
+                source "${conf}"
+            fi
+        done
+    fi
 fi
 
 unset conf
@@ -152,9 +149,11 @@ alias kafka-ui="docker run -it -p 8080:8080 -e DYNAMIC_CONFIG_ENABLED=true prove
 export PATH="/opt/homebrew/opt/gradle@6/bin:$PATH"
 
 asdf_update_java_home() {
-  # shellcheck disable=SC2046
-  JAVA_HOME=$(realpath $(dirname $(readlink -f $(asdf which java)))/../)
-  export JAVA_HOME
+   # shellcheck disable=SC2046
+   if asdf which java &>/dev/null; then
+       JAVA_HOME=$(realpath $(dirname $(readlink -f $(asdf which java)))/../)
+       export JAVA_HOME
+   fi
 }
 autoload -U add-zsh-hook
 add-zsh-hook precmd asdf_update_java_home
