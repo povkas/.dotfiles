@@ -1,13 +1,20 @@
 window:
   startup_mode: 'Fullscreen'
+  padding:
+    x: 6
+    y: 6
 
 font:
-  size: 16.0
+  size: 17.0
   normal:
     family: 'JetBrainsMono NF'
+    style: Regular
 
 env:
   TERM: xterm-256color
+
+mouse:
+  hints: open
 
 key_bindings:
   - { key: Key1, mods: Command, chars: "\x011" } # select tmux window 1
