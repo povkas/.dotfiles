@@ -16,6 +16,8 @@ env:
 mouse:
   hints: open
 
+window.option_as_alt: true
+
 key_bindings:
   - { key: Key1, mods: Command, chars: "\x011" } # select tmux window 1
   - { key: Key2, mods: Command, chars: "\x012" } #                ... 2
